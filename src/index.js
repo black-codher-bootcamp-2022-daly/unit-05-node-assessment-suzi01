@@ -39,11 +39,12 @@ app.get('/todos/overdue', (req,res) => {
   let today_date = new Date()
   todos.forEach(todo => {
     const parse_date = Date.parse(todo.due)
-    if(parse_date < today_date){
+    if(new Date(todo.due) < today_date && todo.completed === false){
       overdues.push(todo)
     }
   })
-  console.log(overdues)
+  // console.log(overdues)
+  res.header("Content-Type","application/json");
   res.send(JSON.stringify(overdues,null,2))
 
 })
@@ -55,6 +56,7 @@ app.get('/todos/completed', (req,res) => {
   let todos = JSON.parse(data)
   // console.log(todos)
   let list_of_todos = todos.filter(todo => todo.completed === true)
+  res.header("Content-Type","application/json");
   res.send(JSON.stringify(list_of_todos,null,2))
 })
 
