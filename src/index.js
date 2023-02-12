@@ -139,10 +139,8 @@ app.patch('/todos/:id', (req,res) => {
     fs.writeFile(__dirname + todoFilePath, todos, (err) => {
       if (err) {
         throw err;
-      } else{
-        res.status(200).end()
       }})
-
+      res.status(200).end()
   } else {
     res.status(404).end()
   }
