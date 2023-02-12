@@ -112,6 +112,7 @@ app.patch('/todos/:id', (req,res) => {
   const matchedProfile = todos.find((el) => el.id == id);
   // const index = todos.findIndex((el) => el.id == id);
   if(matchedProfile){
+    // console.log(id)
     const allowed_keys = ['name','due']
     let body_keys = Object.keys(body)
 
@@ -123,7 +124,8 @@ app.patch('/todos/:id', (req,res) => {
         }
     })
 
-    if(intersection.length === 0 || new Date(body.due) == 'Invalid Date'){
+    if(intersection.length === 0 || (body.due && new Date(body.due) == 'Invalid Date')){
+      console.log('here')
       res.status(404).end()
     }
     intersection.forEach(result => {
